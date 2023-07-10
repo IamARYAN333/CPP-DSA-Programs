@@ -1,0 +1,68 @@
+// This program can be done using Binary Search
+
+#include <iostream>
+using namespace std;
+long long int sqrtInteger(int n)
+{
+    int s = 0;
+    int e = n;
+    long long int mid = s + (e - s) / 2;
+    long long int ans = -1;
+
+    while (s <= e)
+    {
+        int square = mid * mid;
+
+        if (square == n)
+        {
+            return mid;
+        }
+        if (square < n)
+        {
+            ans = mid;
+            s = mid + 1;
+        }
+        else
+        {
+            e = mid - 1;
+        }
+        mid = s + (e - s) / 2;
+    }
+    return ans;
+}
+
+// int mySqrt(int x)
+// {
+//     sqrtInteger(x);
+// }
+
+double morePrecision(int n,int precision,int tempSol) /* This function helps in adding more precision to the answer */
+{
+    double factor = 1;
+    double ans = tempSol;
+
+    for (int i = 0; i < precision; i++)
+    {
+        factor = factor/10;
+        for (double j = ans; j*j < n; j = j + factor)
+        {
+            ans = j;        
+        }
+        
+    }
+    return ans;
+}
+
+
+int main()
+{
+    int n;
+    cout<<"Enter the Number"<<endl;
+    cin >> n;
+//    sqrtInteger(n);
+//    cout<<"Answer is "<<mySqrt(n)<<endl;
+
+    int tempSol = sqrtInteger(n); 
+    cout<<"Answer is "<<morePrecision(n,3,tempSol)<<endl;
+    return 0;
+}
